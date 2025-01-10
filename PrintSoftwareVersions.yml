@@ -1,1 +1,46 @@
 
+name: Print Software Versions
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  # Перша робота: перевірка версій ПЗ для обробки даних
+  data_processing_versions:
+    name: Check Data Processing Software Versions
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Display Python version
+        run: python3 --version
+
+      - name: Display Node.js version
+        run: node --version
+
+      - name: Display Java version
+        run: java -version
+
+      - name: Display npm version
+        run: npm --version
+
+  # Друга робота: перевірка версій СКБД
+  database_versions:
+    name: Check Database Software Versions
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Display PostgreSQL version
+        run: psql --version
+
+      - name: Display MySQL version
+        run: mysql --version
+
+      - name: Display SQLite version
+        run: sqlite3 --version
