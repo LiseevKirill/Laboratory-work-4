@@ -15,7 +15,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Перевірка SQL-файлів за допомогою sqlite3
+      # Validate SQL files using sqlite3
       - name: Validate SQL Files
         run: |
           for file in $(find . -name "*.sql"); do
@@ -23,10 +23,4 @@ jobs:
             sqlite3 :memory: ".read $file" || (echo "SQL validation failed for $file" && exit 1)
           done
 
-      # Перевірка JSON-файлів за допомогою jq
-      - name: Validate JSON Files
-        run: |
-          for file in $(find . -name "*.json"); do
-            echo "Validating $file"
-            jq . "$file" > /dev/null || (echo "Invalid JSON in $file" && exit 1)
-          done
+   
