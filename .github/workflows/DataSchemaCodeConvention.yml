@@ -15,13 +15,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Перевірка SQL файлів
+      # Перевірка SQL-файлів за допомогою sqlite3
       - name: Validate SQL Files
-        uses: djudman/sql-lint-action@v1.0.3
-        with:
-          file_pattern: "*.sql"
+        run: |
+          for file in $(find . -name "*.sql"); do
+            echo "Validating $file"
+            sqlite3 :memory: ".read $file" || (echo "SQL validation failed for $file" && exit 1)
+          done
 
-      # Перевірка JSON файлів
+      # Перевірка JSON-файлів за допомогою jq
       - name: Validate JSON Files
         run: |
           for file in $(find . -name "*.json"); do
