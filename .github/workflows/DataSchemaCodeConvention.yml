@@ -1,0 +1,30 @@
+name: Data Schema Code Convention
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  code_convention_check:
+    name: Check Code Convention for Data Schema
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Перевірка SQL файлів
+      - name: Validate SQL Files
+        uses: djudman/sql-lint-action@v1.0.3
+        with:
+          file_pattern: "*.sql"
+
+      # Перевірка JSON файлів
+      - name: Validate JSON Files
+        run: |
+          for file in $(find . -name "*.json"); do
+            echo "Validating $file"
+            jq . "$file" > /dev/null || (echo "Invalid JSON in $file" && exit 1)
+          done
