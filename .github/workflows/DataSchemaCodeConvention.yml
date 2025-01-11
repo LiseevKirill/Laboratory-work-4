@@ -1,6 +1,6 @@
 name: Data Schema Code Convention
 
-on:
+on: 
   push:
     branches:
       - main
