@@ -1,8 +1,8 @@
 -- Створення таблиці "User"
 CREATE TABLE User (
     ID VARCHAR(36) PRIMARY KEY,
-    FirstName VARCHAR(50) NOT NULL CHECK (FirstName ~ '^[A-Z][a-z]+'),
-    LastName VARCHAR(50) NOT NULL CHECK (LastName ~ '^[A-Z][a-z]+'),
+    FirstName VARCHAR(50) NOT NULL CHECK (FirstName LIKE '[A-Z]%'),
+    LastName VARCHAR(50) NOT NULL CHECK (LastName LIKE '[A-Z]%'),
     DateOfBirth DATE NOT NULL
 );
 
